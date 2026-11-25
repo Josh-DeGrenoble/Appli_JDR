@@ -1,0 +1,112 @@
+/* Fiche D&D : attaques, capacités (compteurs), sorts, emplacements, concentration. */
+
+.attacks, .features, .spells { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.attack, .feature {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--line);
+  flex-wrap: wrap;
+}
+.attack:last-child, .feature:last-child { border-bottom: 0; }
+.attack-name {
+  flex: 1 1 160px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  background: none;
+  border: 0;
+  padding: 0;
+  text-align: left;
+}
+.attack-name:disabled { opacity: 1; cursor: default; }
+.attack-btns { display: flex; gap: 6px; }
+.attack-btns .btn { min-width: 44px; font-variant-numeric: tabular-nums; }
+
+/* compteurs (utilisations, emplacements) */
+.pips { display: flex; flex-wrap: wrap; gap: 6px; }
+.pip {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+  background: transparent;
+  padding: 0;
+}
+.pip.on { background: var(--accent); }
+.pip:disabled { opacity: 0.7; }
+.slot-row { display: flex; align-items: center; gap: 12px; padding: 4px 0; }
+.slot-level { width: 52px; flex: none; font-weight: 700; font-variant-numeric: tabular-nums; }
+
+/* sorts */
+.spell-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 2px;
+  background: none;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+}
+.spell-row.unprepared { color: var(--muted); }
+.tag {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+  color: var(--accent);
+}
+.tag.muted { color: var(--muted); font-weight: 500; }
+.concentration {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid color-mix(in srgb, var(--mind) 55%, var(--line));
+  background: color-mix(in srgb, var(--mind) 12%, var(--surface));
+}
+
+/* bibliothèque de sorts */
+.library { max-height: 50vh; overflow-y: auto; }
+.lib-row { display: flex; align-items: center; gap: 8px; border-bottom: 1px solid var(--line); }
+.lib-main { flex: 1; min-width: 0; display: flex; align-items: center; gap: 6px; padding: 9px 2px; background: none; border: 0; text-align: left; }
+.lib-notes { margin: 0; padding: 6px 4px 10px; }
+.lib-level { width: auto; flex: none; }
+.spell-stats { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.spell-lvl { width: 22px; text-align: center; font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums; }
+.cast-hint { opacity: 0.7; }
+.book-row { display: flex; align-items: center; gap: 10px; }
+.book-row input { width: 22px; height: 22px; flex: none; }
+.book-always { width: 22px; text-align: center; color: var(--muted); flex: none; }
+
+/* ---------- Historique (tiroir à droite) ---------- */
+.history-btn { position: relative; }
+.history-btn .badge {
+  position: absolute; top: 2px; right: 2px; min-width: 18px; height: 18px; padding: 0 4px;
+  border-radius: 9px; background: var(--danger); color: #fff; font-size: 11px; line-height: 18px; text-align: center;
+}
+.drawer-backdrop { position: fixed; inset: 0; background: rgb(0 0 0 / 0.4); z-index: 40; animation: fade-in 0.2s; }
+.drawer {
+  position: fixed; top: 0; right: 0; bottom: 0; width: min(88vw, 380px); z-index: 41; box-sizing: border-box; overflow: hidden;
+  background: var(--surface); box-shadow: var(--shadow); padding: 12px; display: flex; flex-direction: column; gap: 10px;
+  padding-top: max(12px, env(safe-area-inset-top)); animation: slide-in-right 0.22s ease-out;
+}
+@keyframes slide-in-right { from { transform: translateX(100%); } to { transform: none; } }
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+.history-list { list-style: none; margin: 0; padding: 0; overflow-y: auto; flex: 1; display: flex; flex-direction: column; gap: 6px; }
+.history-row { display: flex; gap: 10px; align-items: center; padding: 8px 10px; border-radius: var(--radius); background: var(--surface-2); }
+.history-row.event { border-left: 3px solid var(--accent); }
+.history-row.secret { opacity: 0.8; border-style: dashed; }
+.history-row .list-main { min-width: 0; flex: 1; overflow-wrap: anywhere; }
+.history-total { font-weight: 700; font-size: 1.2rem; min-width: 2ch; text-align: center; }
+
+/* Barre du haut : icônes Dés / Marché */
+.top-icon.on { background: color-mix(in srgb, var(--accent) 22%, transparent); }
+.topbar .icon-btn { flex: none; }
+.gm-tabs button { flex: 1; }

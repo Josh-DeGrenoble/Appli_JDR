@@ -1,0 +1,10 @@
+node_modules/
+dist/
+dist-offline/
+e2e-shots/
+.env
+.env.local
+*.log
+.DS_Store
+Claude outputs/
+_sync.tar.gz

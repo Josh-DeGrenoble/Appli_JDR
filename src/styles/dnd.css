@@ -1,0 +1,158 @@
+/* Fiche D&D : barre d'outils, caractéristiques, compétences, PV, états, bourse, liste compacte des persos. */
+
+/* les jauges en <span> doivent se comporter comme des blocs */
+span.bar, span.bar-fill { display: block; }
+
+/* barre d'outils et sous-onglets */
+.sheet-toolbar { display: flex; gap: 8px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+.roll-mode { flex: 1; min-width: 220px; }
+.roll-mode button.on.m-adv { background: color-mix(in srgb, var(--heal) 30%, var(--surface)); }
+.roll-mode button.on.m-dis { background: color-mix(in srgb, var(--danger) 30%, var(--surface)); }
+.sheet-tabs button { font-weight: 700; padding: 8px 4px; font-size: 0.92rem; }
+
+/* caractéristiques */
+.abilities { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.ability {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 4px;
+  border-radius: 10px;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  min-width: 0;
+}
+.ability-name { font-size: 0.75rem; letter-spacing: 0.1em; color: var(--muted); font-weight: 700; }
+.ability-mod {
+  font-family: var(--font-display);
+  font-size: 1.7rem;
+  line-height: 1.1;
+  background: none;
+  border: 0;
+  padding: 0 8px;
+  color: var(--fg);
+  font-variant-numeric: tabular-nums;
+}
+.ability-score { font-size: 0.85rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.ability-score-input { width: 64px; text-align: center; font-size: 1.3rem; font-weight: 700; padding: 4px; }
+.save-chip {
+  font-size: 0.78rem;
+  padding: 3px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.save-chip.on { color: var(--accent); border-color: color-mix(in srgb, var(--accent) 50%, var(--line)); font-weight: 700; }
+
+/* compétences */
+.skills { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr; }
+@media (min-width: 480px) { .skills { grid-template-columns: 1fr 1fr; column-gap: 12px; } }
+.skill-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 2px;
+  background: none;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+}
+.skill-name { flex: 1; min-width: 0; }
+.skill-bonus { font-weight: 700; font-variant-numeric: tabular-nums; min-width: 32px; text-align: right; }
+.prof-mark { width: 18px; text-align: center; color: var(--muted); }
+.prof-mark.p1 { color: var(--accent); }
+.prof-mark.p2 { color: var(--gold); }
+
+/* PV et valeurs de combat */
+.hp-block { display: flex; gap: 10px; align-items: stretch; }
+.hp-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: left;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--surface-2);
+}
+.hp-main:disabled { opacity: 1; }
+.hp-main .bar { flex: none; width: 100%; height: 12px; }
+.hp-value { font-variant-numeric: tabular-nums; color: var(--muted); font-size: 1.1rem; }
+.hp-value strong { font-family: var(--font-display); font-size: 2.2rem; color: var(--fg); }
+.hp-temp { margin-left: 6px; color: var(--shield); font-weight: 700; font-size: 0.9em; }
+.hp-steps { display: flex; flex-direction: column; gap: 6px; }
+.hp-steps .step { flex: 1; width: 48px; }
+.hp-recap { text-align: center; font-size: 1.2rem; font-variant-numeric: tabular-nums; }
+.hp-recap strong { font-size: 1.8rem; }
+.vitals { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.vital {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 8px 4px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--surface-2);
+  min-width: 0;
+}
+.vital strong { font-size: 1.3rem; font-variant-numeric: tabular-nums; }
+.vital:disabled { opacity: 1; }
+.vital.insp.on strong { color: var(--gold); }
+.vital-input { width: 70px; text-align: center; padding: 4px; font-weight: 700; }
+.field { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.fields { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.fields .wide { grid-column: 1 / -1; }
+.death { display: flex; flex-direction: column; gap: 8px; padding: 10px; border-radius: 10px; border: 1px dashed var(--danger); }
+.dot { display: inline-block; width: 14px; height: 14px; margin-left: 4px; border-radius: 50%; border: 2px solid var(--line); vertical-align: middle; }
+.dot.ok.on { background: var(--heal); border-color: var(--heal); }
+.dot.ko.on { background: var(--danger); border-color: var(--danger); }
+
+/* états */
+.chip.cond { border-color: color-mix(in srgb, var(--danger) 45%, var(--line)); }
+.chip.add { border-style: dashed; color: var(--muted); }
+.cond-grid { display: flex; flex-direction: column; gap: 8px; }
+.cond-grid .option { text-align: left; background: transparent; }
+
+/* bourse */
+.coins { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+.coin {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px 2px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--surface-2);
+  font-variant-numeric: tabular-nums;
+}
+.coin strong { font-size: 1.15rem; }
+.coin span { font-size: 0.75rem; color: var(--muted); }
+.coin:disabled { opacity: 1; }
+.coin-po strong { color: var(--gold); }
+.coin-select { width: 84px; flex: none; }
+
+/* liste compacte des persos (table MJ) */
+.char-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.char-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+.char-row.down { border-color: var(--danger); }
+.char-row-main { flex: 1; min-width: 0; display: flex; align-items: center; gap: 10px; background: none; border: 0; padding: 0; text-align: left; }
+.char-row-main:disabled { opacity: 1; cursor: default; }
+.row-stats { display: flex; align-items: center; gap: 8px; margin-top: 4px; font-variant-numeric: tabular-nums; }
+.bar.mini { flex: 0 0 64px; height: 7px; }
+.row-conds { display: flex; gap: 4px; margin-top: 2px; }
+.hp-btn { flex: none; }
